@@ -4,10 +4,12 @@ import com.km.librarydata.contracts.BookDto;
 import com.km.librarydata.model.Book;
 import com.km.librarydata.model.Book_;
 import com.km.librarydata.services.BookService;
+import com.km.librarydata.wrappers.BookCreationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.metamodel.SingularAttribute;
@@ -47,4 +49,28 @@ public class BookController {
         bookService.putBookToRepository(bookDto);
         return new ResponseEntity<>(bookDto, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/all")
+    public String showAll(Model model) {
+        model.addAttribute("books", bookService.getBooks());
+        return "allBooks";
+    }
+
+    @GetMapping("/add")
+    public String showCreateForm(Model model) {
+        BookCreationDto booksForm = new BookCreationDto();
+        booksForm.addBook(new BookDto());
+        model.addAttribute("form", booksForm);
+        return "createBooksForm";
+    }
+
+    @PostMapping("/save")
+    public String saveBooks(@ModelAttribute BookCreationDto form, Model model) {
+
+        form.getBooks().forEach(bookService::putBookToRepository);
+
+        model.addAttribute("books", bookService.getBooks());
+        return "redirect:/books/all";
+    }
+
 }

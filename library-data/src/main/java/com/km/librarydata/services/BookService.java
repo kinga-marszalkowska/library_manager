@@ -32,7 +32,7 @@ public class BookService {
         return bookRepository.getBooksFromDB(params);
     }
 
-    public void putBookToRepository(BookDto filmDto) {
-        bookRepository.insertBookToDB(filmDto);
+    public void putBookToRepository(BookDto bookDto) {
+        bookRepository.insertBookToDB(bookDto);
     }
 }

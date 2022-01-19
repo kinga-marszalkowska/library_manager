@@ -21,7 +21,7 @@ public class BookRepository {
     private final EntityManager entityManager;
 
     public List<Book> getBooks(){
-        return entityManager.createQuery("SELECT b FROM Book b WHERE b.bookId=1", Book.class)
+        return entityManager.createQuery("SELECT b FROM Book b", Book.class)
                 .getResultList();
 
     }
