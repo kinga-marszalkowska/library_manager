@@ -9,6 +9,7 @@ Wyszukiwarka danych:
 - Search bar: Wyszukiwanie za pomocą Metamodel API, Entity manager JPQL, Full text search (+ LIKE) na tabeli book w bazie danych
 
 Autoryzacja i autentykacja w Spring Security:
+- JPA
 
 
 [ ] Dla osób zalogowanych możliwość zaznaczenia chęci wypożyczenia
