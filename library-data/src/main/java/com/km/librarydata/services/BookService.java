@@ -28,6 +28,18 @@ public class BookService {
                         book.getPublisher())).collect(Collectors.toList());
     }
 
+    public List<BookDto> getBooksBySearch(String search){
+        return bookRepository.fullTextMatch(search)
+                .stream()
+                .map(book ->new BookDto(
+                        book.getIsbn(),
+                        book.getTitle(),
+                        book.getBookDescription(),
+                        book.getAuthor(),
+                        book.getPublishYear(),
+                        book.getPublisher())).collect(Collectors.toList());
+    }
+
     public List<Book> getBooksFromDB(Map<SingularAttribute<Book, ?>, Object> params){
         return bookRepository.getBooksFromDB(params);
     }

@@ -50,11 +50,21 @@ public class BookController {
         return new ResponseEntity<>(bookDto, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/all")
-    public String showAll(Model model) {
-        model.addAttribute("books", bookService.getBooks());
+    @GetMapping("/all")
+    public String showAll(Model model, @RequestParam(value= "keyword", required = false) String keyword) {
+        if (keyword == null || keyword.equals("")) model.addAttribute("books", bookService.getBooks());
+        else {
+            model.addAttribute("keyword", keyword);
+            model.addAttribute("books", bookService.getBooksBySearch(keyword));
+        }
         return "allBooks";
     }
+
+    @GetMapping("/error")
+    public String error(){
+        return "error";
+    }
+
 
     @GetMapping("/add")
     public String showCreateForm(Model model) {

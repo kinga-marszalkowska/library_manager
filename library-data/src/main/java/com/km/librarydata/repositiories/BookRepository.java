@@ -26,6 +26,10 @@ public class BookRepository {
 
     }
 
+    public List<Book> fullTextMatch(String search){
+        return entityManager.createNativeQuery("SELECT * FROM Book WHERE MATCH(title, author, book_description, publisher) AGAINST('"+ search + "')", Book.class).getResultList();
+    }
+
     public List<Book> getBooksFromDB(Map<SingularAttribute<Book, ?>, Object> params){
         CriteriaBuilder qb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Book> query = qb.createQuery(Book.class);
