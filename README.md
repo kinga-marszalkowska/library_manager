@@ -3,6 +3,8 @@
 [o] Możliwość przeglądania katalogu
 
 [o] Możliwość wyszukiwania w katalogu
+     
+    Wyszukiwanie za pomocą Metamodel API, Entity manager JPQL, Full text search na tabeli book w bazie danych
 
 [ ] Dla osób zalogowanych możliwość zaznaczenia chęci wypożyczenia
 
