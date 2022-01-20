@@ -1,10 +1,16 @@
 # HS3 library manager
 
-[o] Możliwość przeglądania katalogu
+Spring MVC:
+- Katalog książek (controller, serwis, repo)
 
-[o] Możliwość wyszukiwania w katalogu
-     
-    - Wyszukiwanie za pomocą Metamodel API, Entity manager JPQL, Full text search na tabeli book w bazie danych
+Wyszukiwarka danych:
+- Możliwość przeglądania katalogu
+- Filtrowanie wyników po wszystkich kategoriach
+- Search bar: Wyszukiwanie za pomocą Metamodel API, Entity manager JPQL, Full text search (+ LIKE) na tabeli book w bazie danych
+
+Autoryzacja i autentykacja w Spring Security:
+- JPA
+
 
 [ ] Dla osób zalogowanych możliwość zaznaczenia chęci wypożyczenia
 
