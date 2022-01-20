@@ -6,13 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-
-    @GetMapping("/")
-    public ResponseEntity index(){
-        return ResponseEntity.ok("<h1>Welcome</h1>");
-    }
-
-
     @GetMapping("user")
     public ResponseEntity user(){
         return ResponseEntity.ok("<h1>Welcome User</h1>");
