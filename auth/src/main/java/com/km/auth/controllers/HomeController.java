@@ -16,4 +16,9 @@ public class HomeController {
         return ResponseEntity.ok("<h1>Welcome Admin</h1>");
     }
 
+    @GetMapping("/error")
+    public String error(){
+        return "error";
+    }
+
 }

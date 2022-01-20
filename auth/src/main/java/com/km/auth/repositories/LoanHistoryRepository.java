@@ -1,6 +1,7 @@
 package com.km.auth.repositories;
 
 import com.km.auth.models.History;
+import com.km.librarydata.model.Book;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.util.Arrays;
 import org.springframework.stereotype.Repository;
@@ -19,6 +20,10 @@ public class LoanHistoryRepository {
         return entityManager.createQuery("SELECT h FROM History h WHERE h.memberId=" + id, History.class)
                 .getResultList();
 
+    }
+
+    public Book getBookById(int id){
+        return entityManager.createQuery("SELECT b FROM Book b WHERE b.bookId='" + id + "'", Book.class).getSingleResult();
     }
 
     public int getUserId(String username){

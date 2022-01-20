@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LoanHistoryController {
     private final LoanHistoryService loanHistoryService;
     @GetMapping("/")
-    public ResponseEntity index(){
+    public ResponseEntity index() {
         return ResponseEntity.ok(loanHistoryService.getCurrentUserLoans());
     }
 
