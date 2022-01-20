@@ -1,5 +1,9 @@
 # HS3 library manager
 
+Aplikacja modułowa, zorientowana serwisowo:
+- Serwis przeglądania katalogu, filtrowania biblioteczki (bez logowania)
+- Serwis wypożyczania, przeglądania swojej historii (dla zalogowanych użytkowników)
+
 Spring MVC:
 - Katalog książek (controller, serwis, repo)
 
