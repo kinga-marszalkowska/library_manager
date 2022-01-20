@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1> Books </h1>
+            <h1> Loans history </h1>
         </div>
     </div>
 
@@ -26,10 +26,24 @@
                 </tr>
                 <tr th:each="loan : ${loans}">
                     <td><span th:text="${loan.bookTitle}"> Title </span></td>
-                    <td><span th:text="${loan.date}"> Date </span></td>
+                    <td><span th:text="${loan.getLoanDate()} "> Date </span></td>
+                    <td><span th:text="${loan.getReturnDate()}">  </span></td>
                 </tr>
                 </tbody>
             </table>
+
+            <tr th:each="book : ${books}">
+                <td><span th:text="${book.bookTitle}"> Title </span></td>
+                <td><span th:text="${book.author} "> Author </span></td>
+                <td><span th:text="${book.bookDescription} "> About </span></td>
+                <form class="col-md-6">
+                    <input type="submit" value="Lend" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                    </input>
+                </form>
+
+            </tr>
+
         </div>
     </div>
 </div>

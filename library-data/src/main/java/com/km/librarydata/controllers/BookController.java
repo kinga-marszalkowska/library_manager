@@ -22,6 +22,12 @@ import java.util.Map;
 public class BookController {
     private final BookService bookService;
 
+    @GetMapping("/")
+    public ResponseEntity<Map<String, String>> sayHello1() {
+        return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT)
+                .header("Location", "/books/all").build();
+    }
+
     @GetMapping
     public ResponseEntity getBooks(
             @RequestParam(value = "title",required = false) String title,
