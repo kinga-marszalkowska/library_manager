@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lend</title>
+    <span th:text="'You are lending ' + ${lend.getTitle()}"></span>
+    <form class="col-md-6" th:action="@{/confirm}" th:method="get">
+        <label for="returnDate"><br>Select return date:</label>
+        <input style="display: none" th:value="${lend.getIsbn()}" name="isbn"></input>
+        <input type="date" id="returnDate" name="returnDate"
+               th:min="${min_return_date}" th:max="${max_return_date}" th:value="${max_return_date}">
+        <button type="submit" th:value="submit" class="btn btn-primary" name="Confirm"><i class="fas fa-search">Confirm</i></button>
+    </form>
+</head>
+<body>
+
+</body>
+</html>

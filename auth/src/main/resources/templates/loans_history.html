@@ -5,13 +5,10 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1> Loans history </h1>
-        </div>
-    </div>
 
-    <div class="row">
+    <h1> Loans history </h1>
+
+    <div class="loans_history row">
         <div class="col-md-6">
             <table class="table">
                 <thead>
@@ -31,19 +28,55 @@
                 </tr>
                 </tbody>
             </table>
+            <!--<ul >
+                <li th:each="book : ${books}" style="margin-bottom: 50px">
+                    <div th:text="${book.getTitle()}"> Title </div>
+                    <div th:text="${book.author} "> Author </div>
+                    <div th:text="${book.bookDescription} "> About </div>
+                    <form class="col-md-6" th:action="@{/books/lend}" th:method="get">
+                        <button type="submit" th:value="${book.getIsbn()}" class="btn btn-primary" name="lend"><i class="fas fa-search">Lend</i></button>
+                    </form>
+                </li>
+            </ul>-->
+        </div>
+    </div>
+    <div class="books_to_lend container">
 
-            <tr th:each="book : ${books}">
-                <td><span th:text="${book.bookTitle}"> Title </span></td>
-                <td><span th:text="${book.author} "> Author </span></td>
-                <td><span th:text="${book.bookDescription} "> About </span></td>
-                <form class="col-md-6">
-                    <input type="submit" value="Lend" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                    </input>
-                </form>
-
-            </tr>
-
+        <h1> Available books </h1>
+        <form class="input-group" action="/" th:method="get" style="display: flex">
+            <input type="search" id="search-input" class="form-control" name="keyword" />
+            <input type="submit" value="Search" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+            </input>
+        </form>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th> Title </th>
+                        <th> Author </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${books.empty}">
+                        <td colspan="2"> No Books Available </td>
+                    </tr>
+                    <tr th:each="book : ${books}">
+                        <td><span th:text="${book.title}"> Title </span></td>
+                        <td><span th:text="${book.author}"> Author </span></td>
+                        <td>
+                            <form class="col-md-6" th:action="@{/lend}" th:method="get">
+                                <button type="submit" th:value="${book.getIsbn()}" class="btn btn-primary" name="lend"><i class="fas fa-search">Lend</i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <a class="btn btn-success" href="#" th:href="@{/books/add}"> Add Books </a>
+            </div>
         </div>
     </div>
 </div>

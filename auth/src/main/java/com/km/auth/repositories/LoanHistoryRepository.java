@@ -1,9 +1,13 @@
 package com.km.auth.repositories;
 
+import com.km.auth.contracts.HistoryDto;
+import com.km.auth.contracts.LoanDto;
 import com.km.auth.models.History;
+import com.km.librarydata.contracts.BookDto;
 import com.km.librarydata.model.Book;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.util.Arrays;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +32,12 @@ public class LoanHistoryRepository {
 
     public int getUserId(String username){
         return entityManager.createQuery("SELECT u.id FROM User u WHERE u.username='" + username + "'", Integer.class).getSingleResult();
+    }
+
+    @Transactional
+    public void insertLoanToDB(History loan) {
+        this.entityManager.persist(loan);
+        this.entityManager.flush();
     }
 
 }

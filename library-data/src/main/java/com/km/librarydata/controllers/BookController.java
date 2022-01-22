@@ -82,9 +82,7 @@ public class BookController {
 
     @PostMapping("/save")
     public String saveBooks(@ModelAttribute BookCreationDto form, Model model) {
-
         form.getBooks().forEach(bookService::putBookToRepository);
-
         model.addAttribute("books", bookService.getBooks());
         return "redirect:/books/all";
     }

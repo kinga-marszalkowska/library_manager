@@ -28,8 +28,12 @@ public class BookService {
                         book.getPublisher())).collect(Collectors.toList());
     }
 
+    public Book getBookByISBN(String isbn){
+        return bookRepository.getBookByISBN(isbn);
+    }
+
     public List<BookDto> getBooksBySearch(String search){
-        return bookRepository.fullTextMatch(search)
+        return bookRepository.searchBar(search)
                 .stream()
                 .map(book ->new BookDto(
                         book.getIsbn(),

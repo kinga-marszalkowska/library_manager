@@ -1,5 +1,6 @@
 package com.km.auth.services;
 
+import com.km.auth.contracts.HistoryDto;
 import com.km.auth.contracts.LoanDto;
 import com.km.auth.contracts.UserDetailsEx;
 import com.km.auth.models.History;
@@ -10,6 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,10 +45,21 @@ public class LoanHistoryService {
     public UserDetailsEx getCurrentUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            UserDetailsEx userDetails = (UserDetailsEx) authentication.getPrincipal();
-            return userDetails;
+            return (UserDetailsEx) authentication.getPrincipal();
         }
         return null;
+    }
+
+    public void loanToDB(String returnDate, Integer bookId){
+        repository.insertLoanToDB(new History(
+                0,
+                getUserId(),
+                bookId,
+                Date.valueOf(LocalDate.now()),
+                Date.valueOf(returnDate)
+
+
+        ));
     }
 
 
