@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Controller
 @Repository
 @RequiredArgsConstructor
+
 public class LoanHistoryController {
     private final LoanHistoryService loanHistoryService;
     private final BookService bookService;
@@ -22,33 +23,38 @@ public class LoanHistoryController {
     @GetMapping("/")
     public String loans(Model model, @RequestParam(value= "keyword", required = false) String keyword) {
         model.addAttribute("loans", loanHistoryService.getCurrentUserLoans());
-        if (keyword == null || keyword.equals("")) model.addAttribute("books", bookService.getBooks());
+        if (keyword == null || keyword.equals("")) model.addAttribute("books", loanHistoryService.getAvailableBooks());
         else {
             model.addAttribute("keyword", keyword);
-            model.addAttribute("books", bookService.getBooksBySearch(keyword));
+            model.addAttribute("books", bookService.getBooksBySearchFromAvailable(loanHistoryService.getAvailableBooksDto(), keyword));
         }
         return "loans_history";
     }
 
     @GetMapping("/lend")
     public String lend(Model model, @RequestParam(value= "lend", required = false) String isbn){
-        if (isbn == null || isbn.equals("")) {
-            model.addAttribute("books", bookService.getBooks());
+        if (isbn == null || isbn.equals("") || cannotLendBook(isbn)) {
+            model.addAttribute("loans", loanHistoryService.getCurrentUserLoans());
+            model.addAttribute("books", loanHistoryService.getAvailableBooks());
             return "loans_history";
         }
-        else {
-            model.addAttribute("lend", bookService.getBookByISBN(isbn));
-            model.addAttribute("min_return_date", LocalDate.now());
-            model.addAttribute("max_return_date", LocalDate.now().plusMonths(DEFAULT_LOAN_DURATION_MONTHS));
-        }
+
+        model.addAttribute("lend", bookService.getBookByISBN(isbn));
+        model.addAttribute("min_return_date", LocalDate.now());
+        model.addAttribute("max_return_date", LocalDate.now().plusMonths(DEFAULT_LOAN_DURATION_MONTHS));
+
         return "lendBooks";
+    }
+
+    public boolean cannotLendBook(String isbn){
+        return !loanHistoryService.canLendBook(bookService.getBookByISBN(isbn));
     }
 
     @GetMapping("/return")
     public String returnBook(Model model, @RequestParam(value="return") String loanId){
         loanHistoryService.returnBook(loanId);
         model.addAttribute("loans", loanHistoryService.getCurrentUserLoans());
-        model.addAttribute("books", bookService.getBooks());
+        model.addAttribute("books", loanHistoryService.getAvailableBooks());
         return "loans_history";
     }
 

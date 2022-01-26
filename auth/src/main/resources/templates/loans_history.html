@@ -60,7 +60,7 @@
                     </thead>
                     <tbody>
                     <tr th:if="${books.empty}">
-                        <td colspan="2"> No Books Available </td>
+                        <td colspan="2"> No Books Available or book is not returned yet </td>
                     </tr>
                     <tr th:each="book : ${books}">
                         <td><span th:text="${book.title}"> Title </span></td>

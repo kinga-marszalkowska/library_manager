@@ -39,6 +39,10 @@ public class LoanHistoryRepository {
         return entityManager.createQuery("SELECT u.id FROM User u WHERE u.username='" + username + "'", Integer.class).getSingleResult();
     }
 
+    public List<History> getAllHistories(){
+        return entityManager.createQuery("SELECT h FROM History h", History.class).getResultList();
+    }
+
     @Transactional
     public void updateLoanInDB(History loan){
         this.entityManager.merge(loan);

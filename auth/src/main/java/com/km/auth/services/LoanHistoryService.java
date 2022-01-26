@@ -4,6 +4,9 @@ import com.km.auth.contracts.LoanDto;
 import com.km.auth.contracts.UserDetailsEx;
 import com.km.auth.models.History;
 import com.km.auth.repositories.LoanHistoryRepository;
+import com.km.librarydata.contracts.BookDto;
+import com.km.librarydata.model.Book;
+import com.km.librarydata.repositiories.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LoanHistoryService {
     private final LoanHistoryRepository repository;
+    private final BookRepository bookRepository;
 
     public List<LoanDto> getLoans(int id){
         return repository.getLoans(id).stream()
@@ -33,6 +37,33 @@ public class LoanHistoryService {
                         isApprovedToBool(loan.getApproved())
                         )).collect(Collectors.toList());
     }
+
+    public List<Book> getAvailableBooks(){
+        List<Book> allBooks = bookRepository.getBooks();
+
+        repository.getAllHistories().stream()
+                .filter(loan -> loan.getApproved() == 0)
+                .forEach(loan ->allBooks.removeIf(book -> book.getBookId() == loan.getBookId()));
+
+        return allBooks;
+    }
+
+    public List<BookDto> getAvailableBooksDto(){
+        return getAvailableBooks().stream()
+                .map(book ->new BookDto(
+                        book.getIsbn(),
+                        book.getTitle(),
+                        book.getBookDescription(),
+                        book.getAuthor(),
+                        book.getPublishYear(),
+                        book.getPublisher())).collect(Collectors.toList());
+    }
+
+    public boolean canLendBook(Book book){
+        return getAvailableBooks().contains(book);
+    }
+
+
 
     public String getBookTitleById(int id){
         return repository.getBookById(id).getTitle();

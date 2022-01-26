@@ -44,6 +44,12 @@ public class BookService {
                         book.getPublisher())).collect(Collectors.toList());
     }
 
+    public List<BookDto> getBooksBySearchFromAvailable(List<BookDto> availableBooks, String search){
+        List<BookDto> searched = getBooksBySearch(search);
+        availableBooks.retainAll(searched);
+        return availableBooks;
+    }
+
     public List<Book> getBooksFromDB(Map<SingularAttribute<Book, ?>, Object> params){
         return bookRepository.getBooksFromDB(params);
     }
