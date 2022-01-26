@@ -1,9 +1,6 @@
 package com.km.auth.contracts;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Date;
 
@@ -11,11 +8,14 @@ import java.sql.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class LoanDto {
     int LoanId;
+    int bookId;
     String bookTitle;
     Date loanDate;
     Date returnDate;
     boolean isActive;
+    boolean approved;
 
 }

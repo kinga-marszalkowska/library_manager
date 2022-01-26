@@ -1,6 +1,8 @@
 package com.km.auth.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,6 +19,7 @@ public class History {
     private int bookId;
     private Date loanDate;
     private Date returnDate;
+    private Byte approved;
 
     public History() {
 
@@ -96,5 +99,16 @@ public class History {
         result = 31 * result + (loanDate != null ? loanDate.hashCode() : 0);
         result = 31 * result + (returnDate != null ? returnDate.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "approved")
+    public Byte getApproved() {
+        return approved;
+    }
+
+
+    public void setApproved(Byte approved) {
+        this.approved = approved;
     }
 }

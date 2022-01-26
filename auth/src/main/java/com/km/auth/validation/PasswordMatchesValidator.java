@@ -1,19 +1,17 @@
-package com.km.auth.validation;
-
-import com.km.auth.contracts.UserDto;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
-public class PasswordMatchesValidator
-        implements ConstraintValidator<PasswordMatches, Object> {
-
-    @Override
-    public void initialize(PasswordMatches constraintAnnotation) {
-    }
-    @Override
-    public boolean isValid(Object obj, ConstraintValidatorContext context){
-        UserDto user = (UserDto) obj;
-        return user.getPassword().equals(user.getMatchingPassword());
-    }
-}
+//package com.km.auth.validation;
+//
+//import javax.validation.ConstraintValidator;
+//import javax.validation.ConstraintValidatorContext;
+//
+//public class PasswordMatchesValidator
+//        implements ConstraintValidator<PasswordMatches, Object> {
+//
+//    @Override
+//    public void initialize(PasswordMatches constraintAnnotation) {
+//    }
+//    @Override
+//    public boolean isValid(Object obj, ConstraintValidatorContext context){
+//        UserDto user = (UserDto) obj;
+//        return user.getPassword().equals(user.getMatchingPassword());
+//    }
+//}

@@ -26,12 +26,23 @@ public class LoanHistoryRepository {
 
     }
 
+    public History getLoanByLoanId(int id){
+        return entityManager.createQuery("SELECT h FROM History h WHERE h.loanId=" + id, History.class)
+                .getSingleResult();
+    }
+
     public Book getBookById(int id){
         return entityManager.createQuery("SELECT b FROM Book b WHERE b.bookId='" + id + "'", Book.class).getSingleResult();
     }
 
     public int getUserId(String username){
         return entityManager.createQuery("SELECT u.id FROM User u WHERE u.username='" + username + "'", Integer.class).getSingleResult();
+    }
+
+    @Transactional
+    public void updateLoanInDB(History loan){
+        this.entityManager.merge(loan);
+        this.entityManager.flush();
     }
 
     @Transactional

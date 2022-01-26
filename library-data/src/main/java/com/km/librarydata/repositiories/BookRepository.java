@@ -2,6 +2,7 @@ package com.km.librarydata.repositiories;
 
 import com.km.librarydata.contracts.BookDto;
 import com.km.librarydata.model.Book;
+import com.km.librarydata.model.Book_;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,10 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +38,12 @@ public class BookRepository {
     }
 
     public List<Book> getTitleLike(String pattern){
-        return entityManager.createNativeQuery(String.format("SELECT * FROM Book WHERE title LIKE '%s'", pattern), Book.class).getResultList();
+        CriteriaBuilder qb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Book> query = qb.createQuery(Book.class);
+        Root<Book> root = query.from(Book.class);
+        Predicate predicate = qb.like(root.get(Book_.title),  pattern + "%");
+        query.where(predicate);
+        return entityManager.createQuery(query.select(root)).getResultList();
     }
 
     public List<Book> exactMatch(String pattern){

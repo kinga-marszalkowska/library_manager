@@ -43,6 +43,15 @@ public class LoanHistoryController {
         }
         return "lendBooks";
     }
+
+    @GetMapping("/return")
+    public String returnBook(Model model, @RequestParam(value="return") String loanId){
+        loanHistoryService.returnBook(loanId);
+        model.addAttribute("loans", loanHistoryService.getCurrentUserLoans());
+        model.addAttribute("books", bookService.getBooks());
+        return "loans_history";
+    }
+
     @GetMapping("/confirm")
     public String confirm(Model model,
                           @RequestParam(value= "returnDate", required = false) String returnDate,

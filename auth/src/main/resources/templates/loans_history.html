@@ -25,19 +25,19 @@
                     <td><span th:text="${loan.bookTitle}"> Title </span></td>
                     <td><span th:text="${loan.getLoanDate()} "> Date </span></td>
                     <td><span th:text="${loan.getReturnDate()}">  </span></td>
+                    <td>
+                        <span th:if="not ${loan.isApproved()} and not ${loan.isActive()}" th:text="Pending"></span>
+                    </td>
+                    <td>
+                        <span th:if="${loan.isActive()}">
+                        <form class="give_back" th:action="@{/return}" th:method="get">
+                                <button type="submit" th:value="${loan.getLoanId()}" class="btn btn-primary" name="return"><i class="fas fa-search">Return</i></button>
+                        </form>
+                        </span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
-            <!--<ul >
-                <li th:each="book : ${books}" style="margin-bottom: 50px">
-                    <div th:text="${book.getTitle()}"> Title </div>
-                    <div th:text="${book.author} "> Author </div>
-                    <div th:text="${book.bookDescription} "> About </div>
-                    <form class="col-md-6" th:action="@{/books/lend}" th:method="get">
-                        <button type="submit" th:value="${book.getIsbn()}" class="btn btn-primary" name="lend"><i class="fas fa-search">Lend</i></button>
-                    </form>
-                </li>
-            </ul>-->
         </div>
     </div>
     <div class="books_to_lend container">
