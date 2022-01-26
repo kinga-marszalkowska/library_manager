@@ -50,6 +50,12 @@ public class BookController {
         return ResponseEntity.ok(bookService.getBooksFromDB(params));
     }
 
+    @GetMapping("/{isbn}")
+    public String getBook(Model model, @PathVariable String isbn){
+        model.addAttribute("book", bookService.getBookByISBN(isbn));
+        return "bookDetails";
+    }
+
     @PostMapping
     public ResponseEntity<BookDto> addBook(@RequestBody BookDto bookDto){
         bookService.putBookToRepository(bookDto);

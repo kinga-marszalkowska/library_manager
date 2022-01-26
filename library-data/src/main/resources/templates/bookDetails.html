@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.getTitle()}"></title>
+</head>
+<body>
+<h1 th:text="${book.getTitle()}"></h1>
+<h2 th:text="${book.getAuthor()}"></h2>
+<h2 th:text="${book.getPublisher()}"></h2>
+<p th:text="${book.getBookDescription()}"></p>
+</body>
+</html>

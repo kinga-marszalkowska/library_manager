@@ -31,15 +31,12 @@
                     <td colspan="2"> No Books Available </td>
                 </tr>
                 <tr th:each="book : ${books}">
-                    <td><span th:text="${book.title}"> Title </span></td>
+                    <td><a th:href="'/books/' +  ${book.isbn}"><span th:text="${book.title}"> Title </span></a></td>
                     <td><span th:text="${book.author}"> Author </span></td>
                 </tr>
+
                 </tbody>
             </table>
-        </div>
-        <div class="col-md-6">
-            <a class="btn btn-success" href="#" th:href="@{/books/add}"> Add Books </a>
-            <a class="btn btn-primary" href="#" th:href="@{/books/edit}" th:classappend="${books.empty} ? 'disabled' : ''"> Edit Books </a>
         </div>
     </div>
 </div>
