@@ -3,6 +3,7 @@ package com.km.auth.controllers;
 import com.km.auth.services.LoanHistoryService;
 import com.km.librarydata.services.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -69,6 +70,11 @@ public class LoanHistoryController {
         }
         return "confirmation";
 
+    }
+
+    @GetMapping("user")
+    public ResponseEntity user(){
+        return ResponseEntity.ok("<h1>Welcome User</h1>");
     }
 
 }

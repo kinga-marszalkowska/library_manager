@@ -3,6 +3,7 @@ package com.km.auth.contracts;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -10,6 +11,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @ToString
 public class LoanDto {
+    int userId;
     int LoanId;
     int bookId;
     String bookTitle;

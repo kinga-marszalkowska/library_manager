@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Loans</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+
+    <h1> Returns to approve </h1>
+
+    <div class="loans_history row">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> Title </th>
+                    <th> Time </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${loans.empty}">
+                    <td colspan="2"> Lend something! </td>
+                </tr>
+                <tr th:each="loan : ${loans}">
+                    <td><span th:text="${loan.getBookTitle()}"> Title </span></td>
+                    <td><span th:text="${loan.getUserId()}"> User </span></td>
+                    <td><span th:text="${loan.getLoanDate()} "> Date </span></td>
+                    <td><span th:text="${loan.getReturnDate()}">  </span></td>
+                    <td>
+                        <span th:if="not ${loan.isApproved()} and not ${loan.isActive()}">
+                            <form class="approve" th:action="@{/admin}" th:method="get">
+                                <button type="submit" th:value="${loan.getLoanId()}" class="btn btn-primary" name="approve"><i class="fas fa-search">Approve</i></button>
+                            </form>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

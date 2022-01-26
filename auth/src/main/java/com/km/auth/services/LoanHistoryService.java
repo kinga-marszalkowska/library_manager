@@ -28,6 +28,7 @@ public class LoanHistoryService {
     public List<LoanDto> getLoans(int id){
         return repository.getLoans(id).stream()
                 .map(loan ->new LoanDto(
+                        id,
                         loan.getLoanId(),
                         loan.getBookId(),
                         getBookTitleById(loan.getBookId()),
@@ -63,8 +64,6 @@ public class LoanHistoryService {
         return getAvailableBooks().contains(book);
     }
 
-
-
     public String getBookTitleById(int id){
         return repository.getBookById(id).getTitle();
     }
@@ -94,7 +93,6 @@ public class LoanHistoryService {
         history.setReturnDate(Date.valueOf(LocalDate.now()));
         repository.updateLoanInDB(history);
     }
-
 
     public List<LoanDto> getCurrentUserLoans(){
         return getLoans(getUserId());
